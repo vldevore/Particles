@@ -1,9 +1,39 @@
 #include "Particle.h"
 
-Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
-virtual void draw(RenderTarget& target, RenderStates states) const override;
-void update(float dt);
-float getTTL() { return m_ttl; }
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
+{
+	
+}
+
+virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
+{
+	
+}
+
+void Particle::update(float dt)
+{
+	
+}
+
+float Particle::getTTL()
+{
+	
+}
+
+void Particle::rotate(double theta)
+{
+	
+}
+
+void Particle::scale(double c)
+{
+	
+}
+
+void Particle::translate(double xShift, double yShift)
+{
+	
+}
 
 
 bool Particle::almostEqual(double a, double b, double eps)
