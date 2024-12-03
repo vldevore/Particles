@@ -23,27 +23,41 @@ virtual void Particle::draw(RenderTarget& target, RenderStates states) const ove
 
 void Particle::update(float dt)
 {
+	m_ttl -= dt;
+	rotate(dt * m_radiansPerSec);
+	scale(SCALE);
+	float dx = m_vx * dt;
+	m_vy -= (G * dt);
+	float dy = m_vy * dt;
+	translate(dx, dy);
 	
 }
 
-float Particle::getTTL()
-{
-	
-}
-
+//multiply by m_A might be an issue
 void Particle::rotate(double theta)
 {
-	
+	Vector2f temp = m_centerCoordinate;
+	translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+	RotationMatrix R(theta);
+	m_A = R * m_A;
+	translate(temp.x, temp.y);
 }
 
 void Particle::scale(double c)
 {
-	
+	Vector2f temp = m_centerCoordinate;
+	translate(-m_centerCoordinate.x, -m_centerCoordinate.y);
+	ScalingMatrix S(c);
+	m_A = S * m_A;
+	translate(temp.x, temp.y);
 }
 
 void Particle::translate(double xShift, double yShift)
 {
-	
+	TranslationMatrix T(xShift, yShift);
+	m_A += T;
+	m_centerCoordinate.x += xShift;
+	m_centerCoordinate.y += yShift;
 }
 
 
