@@ -5,8 +5,19 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	
 }
 
+//check on lines[j]position specifically m_A parameter
 virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
 {
+	sf::VertexArray lines(TriangleFan, numPoints + 1);
+	Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
+	lines[0].position = center;
+	lines[0].color = m_color;
+	for (int j = 1; j < (m_numPoints + 1); j++)
+	{
+		lines[j].position = target.mapCoordsToPixel(m_A[j-1], m_cartesianPlane);
+		lines[j].color = m_Color2;
+	}
+	target.draw(lines);
 	
 }
 
