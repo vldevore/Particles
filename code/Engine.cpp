@@ -6,7 +6,7 @@ void Engine::input()
 {
     while (window.pollEvent(event))
     {
-        if (event.type == Event::Closed)
+        if (event.type == Event::Closed || event.type == Event::Escape) // User can close or click escape to exit program - Tony
         {
             window.close();
         }
@@ -33,9 +33,19 @@ void Engine::input()
 
 }
 
+//Updated the update function - Tony
 void Engine::update(float dtAsSeconds)
 {
-
+    for (int i = 0; i < m_Particles.size();) {
+        float ttl = m_Particles[i].getTTL()
+        if (ttl > 0.0) {
+            m_Particles[i].update(dtAsSeconds);
+            i++;
+        }
+        else {
+            m_Particles.erase(m_Particles.begin() + i);
+        }
+    }
 }
 
 void Engine::draw()
@@ -57,10 +67,13 @@ Engine::Engine()
     VideoMode vm(pixelWidth, pixelHeight);
 
     // Create and open a window for the game Vanessa
-    RenderWindow window(vm, "Mandelbrot", Style::Default);
+    //RenderWindow window(vm, "Mandelbrot", Style::Default);
 
     //assign window to member variable m_Window
-    m_Window = window;
+    //m_Window = window;
+
+    // m_Window create - Tony
+    m_Window.create(vm, "Mandelbrot", Style::Default);
   
     
 }
