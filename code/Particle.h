@@ -1,10 +1,12 @@
 #pragma once
 #include "Matrices.h"
+#include <cstdlib>
+#include <ctime>
 #include <SFML/Graphics.hpp>
 
 #define M_PI 3.1415926535897932384626433
-const float G = 1000;      //Gravity
-const float TTL = 5.0;  //Time To Live
+const float G = 1000;  // Gravity
+const float TTL = 5.0; // Time To Live
 const float SCALE = 0.999;
 
 using namespace Matrices;
@@ -12,12 +14,12 @@ using namespace sf;
 class Particle : public Drawable
 {
 public:
-    Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
-    virtual void draw(RenderTarget& target, RenderStates states) const override;
+    Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosition);
+    virtual void draw(RenderTarget &target, RenderStates states) const override;
     void update(float dt);
     float getTTL() { return m_ttl; }
 
-    //Functions for unit testing
+    // Functions for unit testing
     bool almostEqual(double a, double b, double eps = 0.0001);
     void unitTests();
 
@@ -33,15 +35,15 @@ private:
     Color m_color2;
     Matrix m_A;
 
-    ///rotate Particle by theta radians counter-clockwise
-    ///construct a RotationMatrix R, left mulitply it to m_A
+    /// rotate Particle by theta radians counter-clockwise
+    /// construct a RotationMatrix R, left mulitply it to m_A
     void rotate(double theta);
 
-    ///Scale the size of the Particle by factor c
-    ///construct a ScalingMatrix S, left multiply it to m_A
+    /// Scale the size of the Particle by factor c
+    /// construct a ScalingMatrix S, left multiply it to m_A
     void scale(double c);
 
-    ///shift the Particle by (xShift, yShift) coordinates
-    ///construct a TranslationMatrix T, add it to m_A
+    /// shift the Particle by (xShift, yShift) coordinates
+    /// construct a TranslationMatrix T, add it to m_A
     void translate(double xShift, double yShift);
 };
