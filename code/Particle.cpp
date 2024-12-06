@@ -29,7 +29,7 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
 
     m_color2 = Color(rand() % 256, rand() % 256, rand() % 256);
     int theta_min = 0;
-    int theta_pi = PI / 2;
+    int theta_pi = M_PI / 2;
     int theta = theta_min + rand() % (theta_pi - theta_min + 1);
     int dTheta = 2 * PI / (numPoints - 1);
     int r_min = 20;
@@ -46,8 +46,8 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
     }
 }
 
-// check on lines[j]position specifically m_A parameter
-void Particle::draw(RenderTarget &target, RenderStates states)
+
+void Particle::draw(RenderTarget &target, RenderStates states) const
 {
     sf::VertexArray lines(TriangleFan, m_numPoints + 1);
     Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
@@ -55,7 +55,7 @@ void Particle::draw(RenderTarget &target, RenderStates states)
     lines[0].color1 = m_color;
     for (int j = 1; j < (m_numPoints + 1); j++)
     {
-        lines[j].position = target.mapCoordsToPixel(m_A[j - 1], m_cartesianPlane);
+        lines[j].position = target.mapCoordsToPixel(m_A[2][j - 1], m_cartesianPlane);
         lines[j].color = m_color2;
     }
     target.draw(lines);
@@ -72,7 +72,7 @@ void Particle::update(float dt)
     translate(dx, dy);
 }
 
-// multiply by m_A might be an issue
+
 void Particle::rotate(double theta)
 {
     Vector2f temp = m_centerCoordinate;
