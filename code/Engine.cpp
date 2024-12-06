@@ -4,9 +4,10 @@ using namespace std;
 
 void Engine::input()
 {
-    while (window.pollEvent(event))
+    Event event;
+    while (m_Window.pollEvent(event))
     {
-        if (event.type == Event::Closed || event.type == Event::Escape) // User can close or click escape to exit program - Tony
+        if (event.type == Event::Closed) // User can close or click escape to exit program - Tony
         {
             window.close();
         }
@@ -17,7 +18,7 @@ void Engine::input()
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2i position(event.mouseButton.x, event.mouseButton.y);
-                    int randNum = (rand % 25) + 25;
+                    int randNum = (rand() % 25) + 25;
                     Particle p(m_Window, randNum, position);
                     m_Particles.push_back(p);
                 }
@@ -36,14 +37,14 @@ void Engine::input()
 //Updated the update function - Tony
 void Engine::update(float dtAsSeconds)
 {
-    for (int i = 0; i < m_Particles.size();) {
-        float ttl = m_Particles[i].getTTL()
+    for (int i = 0; i < m_particles.size();) {
+        float ttl = m_particles[i].getTTL()
         if (ttl > 0.0) {
-            m_Particles[i].update(dtAsSeconds);
+            m_particles[i].update(dtAsSeconds);
             i++;
         }
         else {
-            m_Particles.erase(m_Particles.begin() + i);
+            m_particles.erase(m_Particles.begin() + i);
         }
     }
 }
@@ -80,8 +81,8 @@ Engine::Engine()
 
 void Engine::run()
 {
-    Clock clock();
-    Time time();
+    Clock clock;
+    Time time;
   
     cout << "Starting Particle unit tests..." << endl;
     Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
