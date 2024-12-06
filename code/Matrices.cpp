@@ -33,10 +33,10 @@ namespace Matrices
 
     TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2,nCols) 
     {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < nCols; i++)
         {
-            a[0][n] = xShift;
-            a[1][n] = yShift;
+            a[0][i] = xShift;
+            a[1][i] = yShift;
         }
     }
 
