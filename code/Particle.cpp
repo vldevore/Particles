@@ -55,7 +55,7 @@ void Particle::draw(RenderTarget &target, RenderStates states) const
     lines[0].color = m_color1;
     for (int j = 1; j < (m_numPoints + 1); j++)
     {
-        lines[j].position = target.mapCoordsToPixel(m_A[j - 1], m_cartesianPlane);
+        lines[j].position = target.mapCoordsToPixel(m_A(j - 1), m_cartesianPlane);
         lines[j].color = m_color2;
     }
     target.draw(lines);
