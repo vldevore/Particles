@@ -15,6 +15,31 @@ namespace Matrices
         }
     }
 
+    RotationMatrix::RotationMatrix(double theta) : Matrix(2,2) 
+    {
+        a[0][0] = cos(theta);
+        a[0][1] = -sin(theta);
+        a[1][0] = sin(theta);
+        a[1][1] = cos(theta);
+    }
+
+    ScalingMatrix::ScalingMatrix(double scale) : Matrix(2,2)
+    {
+        a[0][0] = scale;
+        a[0][1] = 0;
+        a[1][0] = 0;
+        a[1][1] = scale;
+    }
+
+    TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2,nCols) 
+    {
+        for (int i = 0; i < n; i++)
+        {
+            a[0][n] = xShift;
+            a[1][n] = yShift;
+        }
+    }
+
     Matrix operator+(const Matrix &a, const Matrix &b)
     {
         if (a.getRows() != b.getRows() || a.getCols() != b.getCols())
