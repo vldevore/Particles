@@ -12,14 +12,14 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
     srand(time(0));
 
     m_radiansPerSec = (float)rand() / (RAND_MAX);
-    m_radiansPerSec *= PI;
+    m_radiansPerSec *= M_PI;
     m_cartesianPlane.setCenter(0, 0);
-    m_cartesianPlane.setSize(target.getSize().x(-1.0) * target.getSize().y);
+    m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
     int min = 100;
     int max = 500;
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
     m_vx = min + rand() % (max - min + 1);
-    if (rand % 2 != 0)
+    if (rand() % 2 != 0)
     {
         m_vx *= -1;
     }
@@ -30,13 +30,13 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
     m_color2 = Color(rand() % 256, rand() % 256, rand() % 256);
     int theta_min = 0;
     int theta_pi = PI / 2;
-    theta = theta_min + rand() % (theta_pi - theta_min + 1);
-    dTheta = 2 * PI / (numPoints - 1);
+    int theta = theta_min + rand() % (theta_pi - theta_min + 1);
+    int dTheta = 2 * PI / (numPoints - 1);
     int r_min = 20;
     int r_max = 80;
     for (int j = 0; j < numPoints; j++)
     {
-        int r dx, dy;
+        int r, dx, dy;
         r = r_min + rand() % (r_max - r_min + 1);
         dx = r * cos(theta);
         dy = r * sin(theta);
@@ -47,16 +47,16 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
 }
 
 // check on lines[j]position specifically m_A parameter
-virtual void Particle::draw(RenderTarget &target, RenderStates states) const override
+void Particle::draw(RenderTarget &target, RenderStates states)
 {
-    sf::VertexArray lines(TriangleFan, numPoints + 1);
+    sf::VertexArray lines(TriangleFan, m_numPoints + 1);
     Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
     lines[0].position = center;
-    lines[0].color = m_color;
+    lines[0].color1 = m_color;
     for (int j = 1; j < (m_numPoints + 1); j++)
     {
         lines[j].position = target.mapCoordsToPixel(m_A[j - 1], m_cartesianPlane);
-        lines[j].color = m_Color2;
+        lines[j].color = m_color2;
     }
     target.draw(lines);
 }
@@ -94,7 +94,7 @@ void Particle::scale(double c)
 void Particle::translate(double xShift, double yShift)
 {
     TranslationMatrix T(xShift, yShift);
-    m_A += T;
+    m_A = m_A + T;
     m_centerCoordinate.x += xShift;
     m_centerCoordinate.y += yShift;
 }
