@@ -68,7 +68,7 @@ Engine::Engine()
     VideoMode vm(pixelWidth, pixelHeight);
 
     // m_Window create - Tony
-    m_Window.create(vm, "Mandelbrot", Style::Default);
+    m_Window.create(vm, "Particles", Style::Default);
   
     
 }
