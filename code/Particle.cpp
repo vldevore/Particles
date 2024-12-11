@@ -29,9 +29,9 @@ Particle::Particle(RenderTarget &target, int numPoints, Vector2i mouseClickPosit
 
     m_color2 = Color(rand() % 256, rand() % 256, rand() % 256);
     int theta_min = 0;
-    int theta_pi = M_PI / 2;
-    int theta = theta_min + rand() % (theta_pi - theta_min + 1);
-    int dTheta = 2 * M_PI / (numPoints - 1);
+    float theta_pi = float(M_PI) / 2;
+    float theta = theta_min + rand() % float(theta_pi - theta_min + 1);
+    float dTheta = float(2 * M_PI) / float(numPoints - 1);
     int r_min = 20;
     int r_max = 80;
     for (int j = 0; j < numPoints; j++)
