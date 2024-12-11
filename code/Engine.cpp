@@ -87,7 +87,7 @@ void Engine::run()
     while (m_Window.isOpen())
     {
         time = clock.restart();
-        dt = time.asSeconds();
+        dt = time.asMilliseconds();
         input();
         update(dt);
         draw();
